@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Habits for Kids</title>
+    <style>
+        /* General */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-style: italic;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1em;
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Healthy Habits for Kids</h1>
+    <h2>Hecho por alumnos de 2-C para tu salud</h2>
+</header>
+
+<section>
+    <form id="quizForm">
+        <!-- Pregunta 1 -->
+        <div class="question">
+            <label>1. Cuantos litros de agua bebes al dia?</label>
+            <input type="radio" name="q1" value="a" id="q1a"> Menos de 1 litro
+            <input type="radio" name="q1" value="b" id="q1b"> 1-2 litros
+            <input type="radio" name="q1" value="c" id="q1c"> Mas de 2 litros
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="question">
+            <label>2. Cuantas horas duermes cada noche?</label>
+            <input type="radio" name="q2" value="a" id="q2a"> Menos de 6 horas
+            <input type="radio" name="q2" value="b" id="q2b"> 6-8 horas
+            <input type="radio" name="q2" value="c" id="q2c"> Mas de 8 horas
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="question">
+            <label>3. Cuantas veces a la semana haces ejercicio o juegas al aire libre?</label>
+            <input type="radio" name="q3" value="a" id="q3a"> 0-1 vez
+            <input type="radio" name="q3" value="b" id="q3b"> 2-3 veces
+            <input type="radio" name="q3" value="c" id="q3c"> 4 o mas veces
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="question">
+            <label>4. Que tan a menudo comes frutas y verduras?</label>
+            <input type="radio" name="q4" value="a" id="q4a"> Rara vez o nunca
+            <input type="radio" name="q4" value="b" id="q4b"> De vez en cuando
+            <input type="radio" name="q4" value="c" id="q4c"> Todos los dias
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="question">
+            <label>5. Cuantas horas pasas frente a la pantalla (television, tablet, celular, etc.) al dia?</label>
+            <input type="radio" name="q5" value="a" id="q5a"> Mas de 4 horas
+            <input type="radio" name="q5" value="b" id="q5b"> 2-4 horas
+            <input type="radio" name="q5" value="c" id="q5c"> Menos de 2 horas
+        </div>
+
+        <div id="result">
+            <button type="button" onclick="checkAnswers()">Ver tu resultado</button>
+        </div>
+    </form>
+</section>
+
+<script>
+    function checkAnswers() {
+        let score = 0;
+
+        // Evaluamos las respuestas
+        const answers = {
+            q1: { a: 1, b: 2, c: 3 },
+            q2: { a: 1, b: 2, c: 3 },
+            q3: { a: 1, b: 2, c: 3 },
+            q4: { a: 1, b: 2, c: 3 },
+            q5: { a: 1, b: 2, c: 3 }
+        };
+
+        // Recorremos las preguntas y asignamos puntos
+        for (let i = 1; i <= 5; i++) {
+            const question = document.getElementsByName('q' + i);
+            for (let j = 0; j < question.length; j++) {
+                if (question[j].checked) {
+                    score += answers['q' + i][question[j].value];
+                }
+            }
+        }
+
+        // Determinamos la categoria basada en el puntaje
+        let resultText = '';
+        if (score <= 5) {
+            resultText = 'Tu vida saludable necesita mejorar. ¡Intenta beber mas agua, hacer mas ejercicio y comer mas frutas y verduras!';
+        } else if (score <= 10) {
+            resultText = 'Tu vida saludable es regular. ¡Aun puedes mejorar algunos habitos, pero vas por buen camino!';
+        } else if (score <= 13) {
+            resultText = 'Tu vida saludable es buena. Sigue cuidando tus habitos para mantenerte fuerte y saludable!';
+        } else {
+            resultText = '¡Excelente! Tienes una vida saludable. ¡Sigue asi y mantén estos habitos para sentirte genial!';
+        }
+
+        // Mostrar el resultado
+        document.getElementById('result').innerHTML = `<p>${resultText}</p>`;
+    }
+</script>
+
+<footer>
+    <p>Creditos: TPGC y Omar</p>
+</footer>
+
+</body>
+</html>
